@@ -15,7 +15,7 @@ class CookBook
     ingredients_required.each do |ingredient, amount|
       ingredient_hash = {}
       ingredient_hash[:ingredient] = ingredient.name
-      ingredient_hash[:amount] = amount
+      ingredient_hash[:amount] = "#{amount} #{ingredient.unit}"
       ingredient_collect << ingredient_hash
     end
     ingredient_collect
