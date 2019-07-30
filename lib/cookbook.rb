@@ -10,22 +10,29 @@ class CookBook
     @recipes << recipe
   end
 
-  def method_name
+  def ingredients_hash(ingredients_required)
+    ingredient_hash = {}
+    ingredient_collect = []
+    ingredients_required.each do |ingredient, amount|
+      ingredient_hash[:ingredient] = ingredient.name
+      ingredient_hash[:amount] = amount
+      ingredient_collect << ingredient_hash
+    end
+    ingredient_collect
+  end
 
+  def details_hash(recipe)
+    details_summary = {}
+    details_summary[:ingredients] = ingredients_hash(recipe.ingredients_required)
+    details_summary[:total_calories] = recipe.total_calories
+    details_summary
   end
 
   def summary
     summaries = []
     @recipes.each_with_object({}) do |recipe, hash|
-      details_hash = {}
-      ingredients_hash = {}
       hash[:name] = recipe.name
-      hash[:details] = details_hash[:ingredients] = recipe
-        .ingredients_required.map do |ingredient, amount|
-          ingredients_hash[:ingredient] = ingredient.name
-          ingredients_hash[:amount] = amount
-        end
-      details_hash[:total_calories] = recipe.total_calories
+      hash[:details] = details_hash(recipe)
       summaries << hash
     end
     summaries
