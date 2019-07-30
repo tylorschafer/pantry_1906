@@ -15,13 +15,19 @@ class CookBook
   end
 
   def summary
+    summaries = []
     @recipes.each_with_object({}) do |recipe, hash|
+      details_hash = {}
+      ingredients_hash = {}
       hash[:name] = recipe.name
-      hash[:details] = recipe.ingredients_required.each_with_object({}) do |ingredient, hash_2|
-        hash_2[:ingredient] = ingredient.name
-        hash_2[:amount] = ingredient.unit
+      hash[:details] = details_hash[:ingredients] = recipe
+        .ingredients_required.map do |ingredient, amount|
+          ingredients_hash[:ingredient] = ingredient.name
+          ingredients_hash[:amount] = amount
         end
-      hash[:total_calories] = recipe.total_calories
+      details_hash[:total_calories] = recipe.total_calories
+      summaries << hash
     end
+    summaries
   end
 end
