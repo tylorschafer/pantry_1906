@@ -30,7 +30,7 @@ class CookBook
 
   def summary
     summaries = []
-    @recipes.each do |recipe, hash|
+    @recipes.each do |recipe|
       summary_hash = {}
       summary_hash[:name] = recipe.name
       summary_hash[:details] = details_hash(recipe)
