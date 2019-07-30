@@ -31,19 +31,19 @@ class RecipeTest < Minitest:: Test
     assert_equal expected, @mac_and_cheese.ingredients_required
   end
 
-  def test_ingredients_array
-    @mac_and_cheese.add_ingredient(@cheese, 2)
-    @mac_and_cheese.add_ingredient(@mac, 8)
-
-    assert_equal [@cheese, @mac], @mac_and_cheese.ingredients
-  end
-
   def test_amount_required
     @mac_and_cheese.add_ingredient(@cheese, 2)
     @mac_and_cheese.add_ingredient(@mac, 8)
 
     assert_equal 2, @mac_and_cheese.amount_required(@cheese)
     assert_equal 8, @mac_and_cheese.amount_required(@mac)
+  end
+
+  def test_ingredients_array
+    @mac_and_cheese.add_ingredient(@cheese, 2)
+    @mac_and_cheese.add_ingredient(@mac, 8)
+
+    assert_equal [@cheese, @mac], @mac_and_cheese.ingredients
   end
 
   def test_total_calories

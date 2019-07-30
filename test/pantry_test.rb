@@ -16,6 +16,10 @@ class PantryTest < Minitest:: Test
     @mac_and_cheese.add_ingredient(@mac, 8)
   end
 
+  def test_it_exists
+    assert_instance_of Pantry, @pantry
+  end
+
   def test_attributes
     assert_equal ({}), @pantry.stock
   end

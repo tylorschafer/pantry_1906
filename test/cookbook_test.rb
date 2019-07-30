@@ -8,13 +8,17 @@ class CookBookTest < Minitest:: Test
 
   def setup
     @cookbook = CookBook.new
+
     @cheese = Ingredient.new("Cheese", "C", 100)
     @mac = Ingredient.new("Macaroni", "oz", 30)
+
     @mac_and_cheese = Recipe.new("Mac and Cheese")
     @mac_and_cheese.add_ingredient(@mac, 8)
     @mac_and_cheese.add_ingredient(@cheese, 2)
+
     @ground_beef = Ingredient.new("Ground Beef", "oz", 100)
     @bun = Ingredient.new("Bun", "g", 1)
+
     @burger = Recipe.new("Burger")
     @burger.add_ingredient(@ground_beef, 4)
     @burger.add_ingredient(@bun, 100)
@@ -24,11 +28,35 @@ class CookBookTest < Minitest:: Test
     assert_equal [], @cookbook.recipes
   end
 
-  def test_add_recipes
+  def test_add_recipe
     @cookbook.add_recipe(@mac_and_cheese)
     @cookbook.add_recipe(@burger)
 
     assert_equal [@mac_and_cheese, @burger], @cookbook.recipes
+  end
+
+  def test_ingredients_hash
+    @cookbook.add_recipe(@mac_and_cheese)
+    @cookbook.add_recipe(@burger)
+
+    expected = [{:ingredient=>"Macaroni",
+                 :amount=>"8 oz"},
+                {:ingredient=>"Cheese",
+                  :amount=>"2 C"}]
+
+    assert_equal expected, @cookbook.ingredients_hash(@mac_and_cheese.ingredients_required)
+  end
+
+  def test_details_hash
+    expected = {
+      :ingredients=>[
+        {:ingredient=>"Macaroni",
+          :amount=>"8 oz"},
+        {:ingredient=>"Cheese",
+          :amount=>"2 C"}],
+      :total_calories=>440
+    }
+    assert_equal expected, @cookbook.details_hash(@mac_and_cheese)
   end
 
   def test_cookbook_summary
