@@ -39,10 +39,12 @@ class CookBookTest < Minitest:: Test
     @cookbook.add_recipe(@mac_and_cheese)
     @cookbook.add_recipe(@burger)
 
-    expected = [{:ingredient=>"Macaroni",
-                 :amount=>"8 oz"},
-                {:ingredient=>"Cheese",
-                  :amount=>"2 C"}]
+    expected = [
+      {:ingredient=>"Macaroni",
+       :amount=>"8 oz"},
+      {:ingredient=>"Cheese",
+       :amount=>"2 C"}
+     ]
 
     assert_equal expected, @cookbook.ingredients_hash(@mac_and_cheese.ingredients_required)
   end
